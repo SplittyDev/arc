@@ -1,3 +1,2 @@
-import { Greeter } from "./greeter";
-
-export { Greeter };
+import { Arc } from "./arc";
+export { Arc };
