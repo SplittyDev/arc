@@ -1,0 +1,9 @@
+# http://editorconfig.org
+root = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.sh]
+end_of_line = lf
+insert_final_newline = false
