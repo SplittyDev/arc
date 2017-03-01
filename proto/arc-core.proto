@@ -1,1 +1,33 @@
+// This is the orignal Arc core protocol.
+
 syntax = "proto3";
+package arc;
+
+message User {
+    required string public_key = 1;
+    string user_name = 16;
+    string status_message = 17;
+}
+
+message Identity {   
+    required string public_key = 1;
+    required string private_key = 2;
+    string user_name = 16;
+}
+
+enum ContentType {
+    RAW = 0; // raw bytes
+    TEXT_UTF8 = 1; // UTF8-encoded text
+    // TODO: Add images and other stuff
+}
+
+message Message {
+    required ContentType content_type = 1;
+    required bytes content_body = 2;
+}
+
+message PrivateMessage {
+    required User sender = 1;
+    required User receiver = 2;
+    required Message content = 3;
+}
