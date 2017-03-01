@@ -2,12 +2,6 @@ var gulp = require('gulp');
 var exec = require('child_process').exec;
 var gulp = require('gulp-help')(gulp);
 
-gulp.task('clean', 'Cleans the generated js files from lib directory', function () {
-  return del([
-    'lib/**/*'
-  ]);
-});
-
 var build_gulp_project = function (dir, next) {
   return exec(`gulp --gulpfile ${dir}/gulpfile.js -- build`, function (err, stdout, stderr) {
     if (err) {
