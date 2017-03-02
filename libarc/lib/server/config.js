@@ -1,18 +1,30 @@
 "use strict";
 class ServerConfigurationBuilder {
     constructor() {
-        this.maxConnections = 1024;
+        this.propMaxConnections = 1024;
+        this.propPort = 52000;
+        this.propHost = "0.0.0.0";
     }
     static default() {
         return new ServerConfigurationBuilder().build();
     }
     max_connections(n) {
-        this.maxConnections = n;
+        this.propMaxConnections = n;
+        return this;
+    }
+    port(port) {
+        this.propPort = port;
+        return this;
+    }
+    host(host) {
+        this.propHost = host;
         return this;
     }
     build() {
         return {
-            max_connections: this.maxConnections,
+            host: this.propHost,
+            max_connections: this.propMaxConnections,
+            port: this.propPort,
         };
     }
 }
