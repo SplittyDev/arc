@@ -5,6 +5,7 @@ var gulp = require('gulp-help')(gulp);
 var build_gulp_project = function (dir, next) {
   return exec(`gulp --gulpfile ${dir}/gulpfile.js -- build`, function (err, stdout, stderr) {
     if (err) {
+      console.log(stdout);
       console.log(stderr);
     } else {
       if (next !== void 0 && next.constructor === Function) {
@@ -22,7 +23,7 @@ gulp.task('build', 'Builds all projects', [
 
 gulp.task('build:proto', 'Build the arc protocol', function (next) {
   console.log('INFO: Please rebuild the protocol manually.');
-  next();
+  return next();
 });
 
 gulp.task('build:libarc', 'Builds the arc library', ['build:proto'], function (next) {
