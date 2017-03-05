@@ -1,1 +1,11 @@
+# npm stuff
 node_modules/
+npm-debug.log
+
+# tsc builds
+libarc/lib/
+client/lib/
+server/lib/
+
+# coverage
+coverage/
