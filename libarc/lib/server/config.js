@@ -4,6 +4,8 @@ class ServerConfigurationBuilder {
         this.propMaxConnections = 1024;
         this.propPort = 52000;
         this.propHost = "0.0.0.0";
+        this.sslCert = "<default>";
+        this.sslKey = "<default>";
     }
     static default() {
         return new ServerConfigurationBuilder().build();
@@ -20,11 +22,21 @@ class ServerConfigurationBuilder {
         this.propHost = host;
         return this;
     }
+    ssl_key(path) {
+        this.sslKey = path;
+        return this;
+    }
+    ssl_cert(path) {
+        this.sslCert = path;
+        return this;
+    }
     build() {
         return {
             host: this.propHost,
             max_connections: this.propMaxConnections,
             port: this.propPort,
+            ssl_cert: this.sslCert,
+            ssl_key: this.sslKey,
         };
     }
 }
