@@ -87,8 +87,8 @@ export class ArcServer {
       this.logger.warn("Please replace the default SSL cert with your own as soon as possible.");
       // Replace placeholders
       const basePath = path.dirname(process.argv[1]);
-      this.conf.ssl_key = path.resolve(basePath, "../cert/dev_key.pem");
-      this.conf.ssl_cert = path.resolve(basePath, "../cert/dev_cert.pem");
+      this.conf.ssl_key = path.resolve(basePath, "../cert/dev_private.pem");
+      this.conf.ssl_cert = path.resolve(basePath, "../cert/dev_public.pem");
     } else if (this.conf.ssl_key === "<default>") {
       // Using the default SSL key with a custom certificate is an error
       this.logger.error("SSL conflict: You are using the default key with a custom certificate.");
