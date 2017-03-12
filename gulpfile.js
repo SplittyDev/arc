@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var exec = require('child_process').exec;
 var gulp = require('gulp-help')(gulp);
+var fs = require('fs');
 
 var build_gulp_project = function (dir, next) {
   return exec(`gulp --gulpfile ${dir}/gulpfile.js -- build`, function (err, stdout, stderr) {
@@ -14,6 +15,25 @@ var build_gulp_project = function (dir, next) {
     }
   });
 };
+
+var install_npm_package = function (package, next) {
+  return exec(`npm install ${package}`, function (err, stdout, stderr) {
+    if (err) {
+      console.log(stdout);
+      console.log(stderr);
+    } else {
+      if (next !== void 0 && next.constructor === Function) {
+        next();
+      }
+    }
+  });
+}
+
+/*
+gulp.task('prepare', 'Prepares the environment for building', function(next) {
+  install_npm_package('protobufjs', next);
+});
+*/
 
 gulp.task('build', 'Builds all projects', [
   'build:libarc',

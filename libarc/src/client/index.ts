@@ -1,2 +1,4 @@
 import { ArcClient } from "./client";
-export { ArcClient };
+export {
+  ArcClient
+};

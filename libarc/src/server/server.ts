@@ -12,10 +12,40 @@ import * as winston from "winston";
 import * as ws from "ws";
 
 export class ArcServer {
+  /**
+   * The server configuration.
+   *
+   * @protected
+   * @type {IServerConfiguration}
+   * @memberOf ArcServer
+   */
   protected readonly conf: IServerConfiguration;
+
+  /**
+   * The logger.
+   *
+   * @protected
+   * @type {winston.LoggerInstance}
+   * @memberOf ArcServer
+   */
   protected readonly logger: winston.LoggerInstance;
+
+  /**
+   * The listening WebSocket.
+   *
+   * @protected
+   * @type {ws.Server}
+   * @memberOf ArcServer
+   */
   protected wss: ws.Server;
 
+
+  /**
+   * Creates an instance of ArcServer.
+   * @param {IServerConfiguration} [conf=ServerConfigurationBuilder.default()]
+   *
+   * @memberOf ArcServer
+   */
   constructor(conf: IServerConfiguration = ServerConfigurationBuilder.default()) {
     this.conf = conf;
     this.logger = new winston.Logger(<winston.LoggerOptions> {
@@ -32,11 +62,11 @@ export class ArcServer {
   /**
    * Starts listening for connections.
    *
-   * @param {() => any} [callback]
+   * @param {() => void} [callback]
    *
    * @memberOf ArcServer
    */
-  public listen(callback?: () => any) {
+  public listen(callback?: () => void) {
     const verifyClientCallback: ws.VerifyClientCallbackSync = (
       info: { origin: string; secure: boolean; req: http.IncomingMessage}) => {
       // Accept secure connections
@@ -57,6 +87,7 @@ export class ArcServer {
     });
     // Register event handlers
     this.wss.on("connection", (ws) => {
+      this.logger.info(`Client connected: ${ws.url}`);
       ws.send("00 Service operational.");
     });
     // Start listening for connections
